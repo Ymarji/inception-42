@@ -1,0 +1,56 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    build:
+      context: nginx
+      dockerfile: Dockerfile
+    ports:
+      - "443:443"
+    volumes:
+      - ./data/wp:/var/www/html
+    networks:
+      - net
+
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    build:
+      context: mariadb
+      dockerfile: Dockerfile
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=wordpress
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=root
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    networks:
+      - net
+
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    build:
+      context: wordpress
+      dockerfile: Dockerfile
+    environment:
+      - WORDPRESS_DB_HOST=mariadb
+      - WORDPRESS_DB_NAME=wordpress
+      - WORDPRESS_DB_USER=user
+      - WORDPRESS_DB_PASSWORD=root
+    # depends_on:
+    #   - mariadb
+    volumes:
+      - ./data/wp:/var/www/html
+    networks:
+      - net
+
+networks:
+  net:
+    driver: bridge
+
+# volumes:
+#   nginx_data:

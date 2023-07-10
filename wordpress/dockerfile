@@ -1,0 +1,31 @@
+FROM debian:buster
+
+RUN apt-get update
+RUN apt-get upgrade -y && \
+  apt-get install -y \
+  curl \
+  less \
+  redis \
+  wget \
+  php-cgi php-common php-fpm php-pear php-net-socket php-xml-util php-gettext php-mysql php-bcmath \
+  php-curl php-gd php-mbstring php-xml php-xmlrpc php-soap php-intl php-zip
+RUN apt install -y vim
+
+RUN mkdir -p /var/run/
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
+
+WORKDIR /tmp
+
+RUN wget https://wordpress.org/latest.zip
+# RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
+# RUN php wp-cli.phar --info
+# RUN chmod +x wp-cli.phar
+# RUN mv wp-cli.phar /usr/local/bin/wp
+
+
+COPY ./conf/entrypoint.sh .
+RUN chmod +x entrypoint.sh
+EXPOSE 9000 
+
+ENTRYPOINT [ "/tmp/entrypoint.sh" ]
+CMD ["php-fpm7.3", "-F"]
