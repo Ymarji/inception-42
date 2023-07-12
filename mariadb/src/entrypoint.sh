@@ -2,9 +2,10 @@
 mysql_install_db
 
 /etc/init.d/mysql start
+
 sleep 2
 # Make sure that NOBODY can access the server without a password
-# mysql -u root -e "UPDATE mysql.user SET Password = PASSWORD('CHANGEME') WHERE User = 'root'"
+# mysql -u root -e "UPDATE mysql.user SET Password = PASSWORD('$MYSQL_ROOT_PASSWORD') WHERE User = 'root'"
 # # Kill the anonymous users
 # mysql -u root -e "DROP USER ''@'localhost'"
 # # Because our hostname varies we'll use some Bash magic here.
@@ -12,11 +13,11 @@ sleep 2
 # # Kill off the demo database
 # mysql -u root -e "DROP DATABASE test"
 # # Any subsequent tries to run queries this way will get access denied because lack o
-mysql -u root -e "create user 'user'@'%' identified by 'root'"
+mysql -u root -e "create user '$WORDPRESS_DB_USER'@'%' identified by '$WORDPRESS_DB_PASSWORD'"
 
-mysql -u root -e "CREATE DATABASE wordpress"
+mysql -u root -e "CREATE DATABASE $WORDPRESS_DB_NAME"
 
-mysql -u root -e "GRANT ALL ON wordpress.* to 'user'@'%'"
+mysql -u root -e "GRANT ALL ON $WORDPRESS_DB_NAME.* to '$WORDPRESS_DB_USER'@'%'"
 
 mysql -u root -e "FLUSH PRIVILEGES"
 
@@ -25,5 +26,7 @@ sleep 2
 /etc/init.d/mysql stop
 
 sleep 2
+
 mysqld_safe
+
 # exec "$@"

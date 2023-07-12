@@ -4,47 +4,46 @@ services:
   nginx:
     container_name: nginx
     image: nginx
+    restart: always
     build:
       context: nginx
       dockerfile: Dockerfile
     ports:
       - "443:443"
+    depends_on:
+      - wordpress
     volumes:
-      - ./data/wp:/var/www/html
+      - wordpress_site:/var/www/html
     networks:
       - net
 
   mariadb:
     container_name: mariadb
     image: mariadb
+    restart: always
     build:
       context: mariadb
       dockerfile: Dockerfile
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=wordpress
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=root
+    env_file:
+      - .env
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - wordpress_database:/var/lib/mysql
     networks:
       - net
 
   wordpress:
     container_name: wordpress
     image: wordpress
+    restart: always
     build:
       context: wordpress
       dockerfile: Dockerfile
-    environment:
-      - WORDPRESS_DB_HOST=mariadb
-      - WORDPRESS_DB_NAME=wordpress
-      - WORDPRESS_DB_USER=user
-      - WORDPRESS_DB_PASSWORD=root
-    # depends_on:
-    #   - mariadb
+    env_file:
+      - .env
+    depends_on:
+      - mariadb
     volumes:
-      - ./data/wp:/var/www/html
+      - wordpress_site:/var/www/html
     networks:
       - net
 
@@ -54,3 +53,16 @@ networks:
 
 # volumes:
 #   nginx_data:
+volumes:
+  wordpress_site:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './data/wp'
+  wordpress_database:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: './data/mysql'

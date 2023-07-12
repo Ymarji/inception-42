@@ -16,4 +16,3 @@ EXPOSE 3306
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD [ "/entrypoint.sh" ]
-# CMD ["mysqld_safe"]
