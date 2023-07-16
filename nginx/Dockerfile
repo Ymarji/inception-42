@@ -14,5 +14,6 @@ WORKDIR /
 RUN chown -R www-data:www-data /var/www/html
 RUN chmod -R 755 /var/www/html
 EXPOSE 443
+EXPOSE 8888
 
 CMD ["nginx", "-g", "daemon off;"]

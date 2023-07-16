@@ -10,10 +10,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "443:443"
+      - "8888:8888"
     depends_on:
       - wordpress
     volumes:
-      - wordpress_site:/var/www/html
+      - ./data/wp:/var/www/html/wordpress
+      - ./data/adminer:/var/www/html/adminer
     networks:
       - net
 
@@ -27,9 +29,15 @@ services:
     env_file:
       - .env
     volumes:
-      - wordpress_database:/var/lib/mysql
+      - ./data/mysql:/var/lib/mysql
     networks:
       - net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping"]
+      interval: 5s
+      timeout: 20s
+      retries: 10
+      start_period: 30s
 
   wordpress:
     container_name: wordpress
@@ -41,9 +49,25 @@ services:
     env_file:
       - .env
     depends_on:
-      - mariadb
+      mariadb:
+        condition: service_healthy
     volumes:
-      - wordpress_site:/var/www/html
+      - ./data/wp:/var/www/html/wordpress
+    networks:
+      - net
+
+  adminer:
+    container_name: adminer
+    image: adminer
+    build:
+      context: adminer
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      mariadb:
+        condition: service_healthy
+    volumes:
+      - ./data/adminer:/var/www/html/adminer
     networks:
       - net
 
@@ -53,16 +77,16 @@ networks:
 
 # volumes:
 #   nginx_data:
-volumes:
-  wordpress_site:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: './data/wp'
-  wordpress_database:
-    driver: local
-    driver_opts:
-      type: 'none'
-      o: 'bind'
-      device: './data/mysql'
+# volumes:
+#   wordpress_site:
+#     driver: local
+#     driver_opts:
+#       type: 'none'
+#       o: 'bind'
+#       device: './data/wp'
+#   wordpress_database:
+#     driver: local
+#     driver_opts:
+#       type: 'none'
+#       o: 'bind'
+#       device: './data/mysql'
