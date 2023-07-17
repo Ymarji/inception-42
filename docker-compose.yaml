@@ -71,6 +71,16 @@ services:
     networks:
       - net
 
+  redis:
+    container_name: redis
+    image: redis
+    build:
+      context: redis
+      dockerfile: Dockerfile
+    restart: always
+    networks:
+      - net
+
 networks:
   net:
     driver: bridge
