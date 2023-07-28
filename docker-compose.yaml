@@ -81,6 +81,22 @@ services:
     networks:
       - net
 
+  ftp:
+    container_name: ftp
+    image: ftp
+    build:
+      context: ftp
+      dockerfile: Dockerfile
+    restart: always
+    depends_on:
+      - wordpress
+    volumes:
+      - ./data/wp:/var/www/html/wordpress
+    ports:
+      - "20:20"
+    networks:
+      - net
+
 networks:
   net:
     driver: bridge
