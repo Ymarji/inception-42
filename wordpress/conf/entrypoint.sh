@@ -12,6 +12,8 @@ else
 
 wp core download --allow-root
 cp wp-config-sample.php wp-config.php
+
+chown www-data:www-data -R /var/www/html/wordpress
 # set wp database config
 wp config set DB_NAME $WORDPRESS_DB_NAME --allow-root
 wp config set DB_USER $WORDPRESS_DB_USER --allow-root

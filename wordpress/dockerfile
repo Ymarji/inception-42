@@ -16,7 +16,6 @@ COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/www.conf
 
 WORKDIR /tmp
 
-# RUN wget http://wordpress.org/latest.zip
 RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN php wp-cli.phar --info
 RUN chmod +x wp-cli.phar
@@ -27,7 +26,5 @@ RUN chmod +x entrypoint.sh
 
 WORKDIR /var/www/html/wordpress
 EXPOSE 9000 
-
 ENTRYPOINT [ "/tmp/entrypoint.sh" ]
 CMD ["php-fpm7.3", "-F"]
-# CMD ["tail", "-f", "/dev/null"]

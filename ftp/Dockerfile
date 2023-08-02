@@ -2,8 +2,14 @@ FROM debian:buster
 
 RUN apt-get update
 RUN apt-get -y upgrade
-RUN apt install -y vsftpd
+RUN apt install -y vsftpd vim
 
-EXPOSE 20
+RUN mv /etc/vsftpd.conf /etc/default_vsftpd.conf
+COPY ./conf/vsftpd.conf /etc/vsftpd.conf
 
-CMD [ "tail","-f" ]
+RUN mkdir -p /var/run/vsftpd/empty
+
+
+COPY --chmod=744 ./conf/entrypoint.sh /tmp/
+ENTRYPOINT [ "/tmp/entrypoint.sh", "--" ]
+CMD [ "vsftpd" ]
