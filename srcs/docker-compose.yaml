@@ -10,7 +10,6 @@ services:
       dockerfile: Dockerfile
     ports:
       - "443:443"
-      - "8888:8888"
     depends_on:
       - wordpress
     volumes:
@@ -60,7 +59,7 @@ services:
     container_name: adminer
     image: adminer
     build:
-      context: adminer
+      context: bonus/adminer
       dockerfile: Dockerfile
     restart: always
     depends_on:
@@ -68,6 +67,8 @@ services:
         condition: service_healthy
     volumes:
       - ./data/adminer:/var/www/html/adminer
+    ports:
+      - "9090:9090"
     networks:
       - net
 
@@ -75,7 +76,7 @@ services:
     container_name: redis
     image: redis
     build:
-      context: redis
+      context: bonus/redis
       dockerfile: Dockerfile
     restart: always
     networks:
@@ -85,7 +86,7 @@ services:
     container_name: ftp
     image: ftp
     build:
-      context: ftp
+      context: bonus/ftp
       dockerfile: Dockerfile
     restart: always
     depends_on:
@@ -100,6 +101,32 @@ services:
       - "10090-10100:10090-10100"
     networks:
       - net
+
+  portfolio:
+    container_name: portfolio
+    image: portfolio
+    build:
+      context: bonus/portfolio
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+
+  portainer:
+    container_name: portainer
+    image: portainer
+    build:
+      context: bonus/portainer
+      dockerfile: Dockerfile
+    ports:
+      - 9443:9443
+    restart: always
+    volumes:
+      - ./data/port:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - net
+
 
 networks:
   net:

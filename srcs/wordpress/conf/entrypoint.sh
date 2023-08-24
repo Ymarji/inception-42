@@ -37,7 +37,10 @@ wp config set WP_REDIS_READ_TIMEOUT 1 --allow-root
 wp redis enable --allow-root
 
 wp theme install twentynineteen --allow-root
-wp theme activate twentynineteen --allow-root
+wp theme activate twentytwentythree --allow-root
 
+# wp plugin install wp-dummy-content-generator --allow-root
+# wp plugin activate wp-dummy-content-generator --allow-root
+curl -N https://loripsum.net/api/5 | wp post generate --post_content --count=10 --allow-root
 fi
 exec "$@"
