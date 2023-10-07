@@ -132,18 +132,28 @@ networks:
   net:
     driver: bridge
 
-# volumes:
-#   nginx_data:
-# volumes:
-#   wordpress_site:
-#     driver: local
-#     driver_opts:
-#       type: 'none'
-#       o: 'bind'
-#       device: './data/wp'
-#   wordpress_database:
-#     driver: local
-#     driver_opts:
-#       type: 'none'
-#       o: 'bind'
-#       device: './data/mysql'
+volumes:
+  wordpress_site:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/ymarji/data/wp'
+  mysql_v:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/ymarji/data/mysql'
+  prtainer_v:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/ymarji/data/portainer'
+  adminer_v:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: 'bind'
+      device: '/home/ymarji/data/adminer'
