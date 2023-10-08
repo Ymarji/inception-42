@@ -2,7 +2,8 @@ FROM debian:buster
 
 RUN apt update
 RUN apt upgrade -y
-RUN apt install -y wget ca-certificates curl jq
+RUN apt install -y wget ca-certificates curl jq apache2-utils
+RUN echo -n $PORTAINER_ADMIN_PASSWORD > /tmp/file.txt
 
 # RUN mkdir -p /home/test && \
 #     addgroup -S portainer && \
@@ -13,4 +14,4 @@ RUN curl -sSL https://github.com/portainer/portainer/releases/download/2.18.4/po
  tar -xzo -C /usr/local
 
 EXPOSE 9443
-CMD ["/usr/local/portainer/portainer"]
+CMD ["/usr/local/portainer/portainer","--http-enabled", "--admin-password-file=/tmp/file.txt"]

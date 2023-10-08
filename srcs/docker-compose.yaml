@@ -13,8 +13,8 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - ./data/wp:/var/www/html/wordpress
-      - ./data/adminer:/var/www/html/adminer
+      - wordpress_site:/var/www/html/wordpress
+      - adminer_v:/var/www/html/adminer
     networks:
       - net
 
@@ -28,7 +28,7 @@ services:
     env_file:
       - .env
     volumes:
-      - ./data/mysql:/var/lib/mysql
+      - mysql_v:/var/lib/mysql
     networks:
       - net
     healthcheck:
@@ -51,7 +51,7 @@ services:
       mariadb:
         condition: service_healthy
     volumes:
-      - ./data/wp:/var/www/html/wordpress
+      - wordpress_site:/var/www/html/wordpress
     networks:
       - net
 
@@ -66,7 +66,7 @@ services:
       mariadb:
         condition: service_healthy
     volumes:
-      - ./data/adminer:/var/www/html/adminer
+      - adminer_v:/var/www/html/adminer
     ports:
       - "9090:9090"
     networks:
@@ -92,7 +92,7 @@ services:
     depends_on:
       - wordpress
     volumes:
-      - ./data/wp:/var/www/html/wordpress
+      - wordpress_site:/var/www/html/wordpress
     env_file:
       - .env
     ports:
@@ -122,7 +122,7 @@ services:
       - 9443:9443
     restart: always
     volumes:
-      - ./data/port:/data
+      - prtainer_v:/data
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - net

@@ -17,5 +17,5 @@ RUN mkdir /var/www/html/adminer
 WORKDIR /var/www/html/adminer
 
 EXPOSE 9090
-ENTRYPOINT [ "/tmp/entrypoint.sh" ]
+ENTRYPOINT [ "bash", "/tmp/entrypoint.sh" ]
 CMD ["php", "-S", "0.0.0.0:9090", "-t", "/var/www/html/adminer"]
