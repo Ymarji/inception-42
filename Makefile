@@ -33,6 +33,7 @@ stop:
 
 clean:
 	docker-compose -f ./srcs/docker-compose.yaml down --rmi all -v --remove-orphans
+	@docker stop $(docker ps -qa); docker rm $(docker ps -qa); docker rmi -f $(docker images -qa); docker volume rm $(docker volume ls -q); docker network rm $(docker network ls -q) 2>/dev/null
 	@echo "$(GREEN)Remmoving Data directory ...$(NC)"
 	@rm -rf ./data/*
 	@echo "$(GREEN)Data directory removed$(NC)"
