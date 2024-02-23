@@ -26,7 +26,8 @@ all:
 	\n---\t $(RED)pontainer$(NC)\t: https://localhost:9443"
 
 build:
-	docker-compose -f ./srcs/docker-compose.yaml up --build -d
+	docker-compose -f ./srcs/docker-compose.yaml build --no-cache
+	docker-compose -f ./srcs/docker-compose.yaml up -d --force-recreate
 
 stop:
 	docker-compose -f ./srcs/docker-compose.yaml down

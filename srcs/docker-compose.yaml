@@ -58,6 +58,7 @@ services:
   adminer:
     container_name: adminer
     image: adminer
+    init: true
     build:
       context: bonus/adminer
       dockerfile: Dockerfile
@@ -118,8 +119,13 @@ services:
     build:
       context: bonus/portainer
       dockerfile: Dockerfile
+      args:
+        - PORTAINER_ADMIN_PASSWORD=$PORTAINER_ADMIN_PASSWORD
+    env_file:
+      - .env
     ports:
-      - 9443:9443
+      - "9443:9443"
+      - "9000:9000"
     restart: always
     volumes:
       - prtainer_v:/data

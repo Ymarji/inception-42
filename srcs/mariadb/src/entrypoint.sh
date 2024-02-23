@@ -1,10 +1,10 @@
 #!/bin/bash
 mysql_install_db
 
-/etc/init.d/mysql start
+/etc/init.d/mariadb start
 
 sleep 2
-# Make sure that NOBODY can access the server without a password
+# # Make sure that NOBODY can access the server without a password
 # mysql -u root -e "UPDATE mysql.user SET Password = PASSWORD('$MYSQL_ROOT_PASSWORD') WHERE User = 'root'"
 # # Kill the anonymous users
 # mysql -u root -e "DROP USER ''@'localhost'"
@@ -23,7 +23,7 @@ mysql -u root -e "FLUSH PRIVILEGES"
 
 sleep 2
 
-/etc/init.d/mysql stop
+/etc/init.d/mariadb stop
 
 sleep 2
 

@@ -28,6 +28,7 @@ REDIS_HOST = redis
 REDIS_PORT = 6379
 REDIS_DB_PREFIX = inception
 
+PORTAINER_ADMIN_PASSWORD=Youssef1995
 
 FTP_USER = ftpuser
 FTP_PASS = root
