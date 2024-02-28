@@ -144,22 +144,22 @@ volumes:
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Home/ymarji/data/wp'
+      device: '/home/ymarji/data/wp'
   mysql_v:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Home/ymarji/data/mysql'
+      device: '/home/ymarji/data/mysql'
   prtainer_v:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Home/ymarji/data/portainer'
+      device: '/home/ymarji/data/portainer'
   adminer_v:
     driver: local
     driver_opts:
       type: 'none'
       o: 'bind'
-      device: '/Home/ymarji/data/adminer'
+      device: '/home/ymarji/data/adminer'

@@ -2,6 +2,7 @@ FROM debian:bullseye
 
 ARG PORTAINER_ADMIN_PASSWORD
 
+ARG PORTAINER_ADMIN_PASSWORD 
 RUN apt update
 RUN apt upgrade -y
 RUN apt install -y wget ca-certificates curl jq apache2-utils
@@ -15,7 +16,5 @@ RUN echo -n $PORTAINER_ADMIN_PASSWORD > /tmp/file.txt
 RUN curl -sSL https://github.com/portainer/portainer/releases/download/2.18.4/portainer-2.18.4-linux-amd64.tar.gz | \
  tar -xzo -C /usr/local
 
-EXPOSE 9443 9000
-CMD ["/usr/local/portainer/portainer", "--admin-password-file=/tmp/file.txt"]
-# CMD ["/usr/local/portainer/portainer"]
-# CMD ["/usr/local/portainer/portainer", "--admin-password=$(htpasswd -nb -B admin $PORTAINER_ADMIN_PASSWORD | cut -d ':' -f 2)"]
+EXPOSE 9443
+CMD ["/usr/local/portainer/portainer","--http-enabled", "--admin-password-file=/tmp/file.txt"]
