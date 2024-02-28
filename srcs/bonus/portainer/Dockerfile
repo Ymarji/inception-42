@@ -17,4 +17,4 @@ RUN curl -sSL https://github.com/portainer/portainer/releases/download/2.18.4/po
  tar -xzo -C /usr/local
 
 EXPOSE 9443
-CMD ["/usr/local/portainer/portainer","--http-enabled", "--admin-password-file=/tmp/file.txt"]
+CMD ["/usr/local/portainer/portainer", "--admin-password-file=/tmp/file.txt"]
