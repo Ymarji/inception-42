@@ -32,9 +32,9 @@ build:
 	mkdir -p ~/data/wp
 	mkdir -p ~/data/adminer
 	mkdir -p ~/data/portainer
-	docker-compose -f ./srcs/docker-compose.yaml build --no-cache
-	# docker-compose -f ./srcs/docker-compose.yaml build
-	docker-compose -f ./srcs/docker-compose.yaml up -d --force-recreate
+	# docker-compose -f ./srcs/docker-compose.yaml build --no-cache
+	docker-compose -f ./srcs/docker-compose.yaml build mariadb
+	docker-compose -f ./srcs/docker-compose.yaml up -d --force-recreate mariadb
 
 stop:
 	docker-compose -f ./srcs/docker-compose.yaml down
@@ -42,7 +42,7 @@ stop:
 clean:
 	@docker-compose -f ./srcs/docker-compose.yaml down --rmi all -v --remove-orphans
 
-fclean:
+fclean: clean
 	@echo "$(GREEN)Remmoving Data directory ...$(NC)"
 	@sudo rm -rf ~/data/*
 	@docker stop $(docker ps -qa); docker rm $(docker ps -qa); docker rmi -f $(docker images -qa); docker volume rm $(docker volume ls -q); docker network rm $(docker network ls -q) 2>/dev/null
