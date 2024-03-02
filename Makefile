@@ -33,8 +33,8 @@ build:
 	mkdir -p ~/data/adminer
 	mkdir -p ~/data/portainer
 	# docker-compose -f ./srcs/docker-compose.yaml build --no-cache
-	docker-compose -f ./srcs/docker-compose.yaml build mariadb
-	docker-compose -f ./srcs/docker-compose.yaml up -d --force-recreate mariadb
+	docker-compose -f ./srcs/docker-compose.yaml build 
+	docker-compose -f ./srcs/docker-compose.yaml up -d --force-recreate
 
 stop:
 	docker-compose -f ./srcs/docker-compose.yaml down

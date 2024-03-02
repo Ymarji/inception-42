@@ -11,8 +11,6 @@ RUN mkdir -p /var/run/vsftpd/empty
 
 
 COPY --chmod=744 ./conf/entrypoint.sh /tmp/
-# ENTRYPOINT [ "/tmp/entrypoint.sh", "--" ]
-# CMD [ "vsftpd" ]
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD [ "/tmp/entrypoint.sh", "--", "vsftpd" ]
