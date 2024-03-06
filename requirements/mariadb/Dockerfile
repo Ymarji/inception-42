@@ -8,8 +8,8 @@ RUN apt install mariadb-server mariadb-client -y tini
 # && chown -R mysql:mysql /var/run/mysqld \
 # && chmod 777 /var/run/mysqld
 
-COPY ./src/entrypoint.sh /
-COPY ./src/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./conf/entrypoint.sh /
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 3306

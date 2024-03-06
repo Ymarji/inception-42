@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-include ./srcs/.env
+include ./requirements/.env
 
 RED = \033[1;31m
 GREEN = \033[1;32m
@@ -32,15 +32,15 @@ build:
 	mkdir -p ~/data/wp
 	mkdir -p ~/data/adminer
 	mkdir -p ~/data/portainer
-	# docker-compose -f ./srcs/docker-compose.yaml build --no-cache
-	docker-compose -f ./srcs/docker-compose.yaml build 
-	docker-compose -f ./srcs/docker-compose.yaml up -d --force-recreate
+	# docker-compose -f ./requirements/docker-compose.yaml build --no-cache
+	docker-compose -f ./requirements/docker-compose.yaml build 
+	docker-compose -f ./requirements/docker-compose.yaml up -d --force-recreate
 
 stop:
-	docker-compose -f ./srcs/docker-compose.yaml down
+	docker-compose -f ./requirements/docker-compose.yaml down
 
 clean:
-	@docker-compose -f ./srcs/docker-compose.yaml down --rmi all -v --remove-orphans
+	@docker-compose -f ./requirements/docker-compose.yaml down --rmi all -v --remove-orphans
 
 fclean: clean
 	@echo "$(GREEN)Remmoving Data directory ...$(NC)"
