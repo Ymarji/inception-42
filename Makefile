@@ -36,7 +36,7 @@ build:
 	docker-compose -f ./requirements/docker-compose.yaml build 
 	docker-compose -f ./requirements/docker-compose.yaml up -d --force-recreate
 
-stop:
+down:
 	docker-compose -f ./requirements/docker-compose.yaml down
 
 clean:
@@ -45,5 +45,4 @@ clean:
 fclean: clean
 	@echo "$(GREEN)Remmoving Data directory ...$(NC)"
 	@sudo rm -rf ~/data/*
-	@docker stop $(docker ps -qa); docker rm $(docker ps -qa); docker rmi -f $(docker images -qa); docker volume rm $(docker volume ls -q); docker network rm $(docker network ls -q) 2>/dev/null
 	@echo "$(GREEN)Data directory removed$(NC)"

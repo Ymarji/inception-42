@@ -42,6 +42,7 @@ wp redis enable --allow-root
 # wp plugin install wp-dummy-content-generator --allow-root
 # wp plugin activate wp-dummy-content-generator --allow-root
 chown -R www-data:www-data /var/www/html/wordpress
+chmod -R g+rwx /var/www/html/wordpress
 curl -N https://loripsum.net/api/5 | wp post generate --post_content --count=10 --allow-root
 fi
 exec "$@"
