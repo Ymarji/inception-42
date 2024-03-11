@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 RUN apt update
 RUN apt upgrade -y
-RUN apt install mariadb-server mariadb-client -y tini
+RUN apt install mariadb-server mariadb-client -y
 
 # RUN mkdir -p /var/run/mysqld \
 # && chown -R mysql:mysql /var/run/mysqld \
@@ -13,6 +13,4 @@ COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 3306
-
-ENTRYPOINT ["/usr/bin/tini", "--"]
 CMD [ "/entrypoint.sh" ]

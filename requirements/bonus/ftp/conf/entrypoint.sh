@@ -11,5 +11,5 @@ echo -e "$FTP_PASS\n$FTP_PASS" | passwd $FTP_USER
 # usermod -d /var/www/html/wordpress $FTP_USER
 
 service vsftpd stop
-
+echo "==============>" "$@"
 exec "$@"

@@ -25,6 +25,7 @@ services:
     build:
       context: mariadb
       dockerfile: Dockerfile
+    init: true
     env_file:
       - .env
     volumes:
@@ -90,6 +91,7 @@ services:
       context: bonus/ftp
       dockerfile: Dockerfile
     restart: always
+    init: true
     depends_on:
       - wordpress
     volumes:
@@ -121,6 +123,7 @@ services:
       dockerfile: Dockerfile
       args:
         - PORTAINER_ADMIN_PASSWORD=$PORTAINER_ADMIN_PASSWORD
+    init: true
     env_file:
       - .env
     ports:
